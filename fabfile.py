@@ -60,7 +60,8 @@ def install_dependencies():
         'uwsgi-plugin-python',
         'htop',
         'ipython',
-        'swig'
+        'swig',
+        'pkg-config'
     ]
     sudo('apt-get -y update')
     sudo('apt-get -y upgrade')
