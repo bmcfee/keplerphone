@@ -6,6 +6,5 @@ fabric
 uwsgi
 matplotlib
 librosa
-numpy
 kplr
 prettyplotlib

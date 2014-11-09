@@ -60,6 +60,7 @@ def install_dependencies():
         'uwsgi-plugin-python',
         'htop',
         'ipython',
+        'python-numpy',
         'libasound2-dev',
         'swig',
         'pkg-config',
