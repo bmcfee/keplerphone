@@ -18,6 +18,7 @@ function update_scales(data) {
 }
 
 function play() {
+    MIDIjs.stop();
     var source = $('input[name=source]:checked').val();
     var kic = $('#koi').val();
     var scale = $('#scale').val();
