@@ -59,12 +59,17 @@ def get_ids():
     return json.encode(keplerphone.get_ids())
 
 
+@app.route('/<int:kic>/<scale>/<speed>')
 @app.route('/<int:kic>/<scale>')
 @app.route('/<int:kic>')
 @app.route('/')
-def index(kic=4912991, scale='Kafi'):
+def index(kic=4912991, scale='Kafi', speed=2.0):
     '''Top-level web page'''
-    return flask.render_template('index.html', kic=kic, scale=scale)
+    speed = float(speed)
+    return flask.render_template('index.html', 
+                                 kic=kic, 
+                                 scale=scale, 
+                                 speed=speed)
 
 
 # -- partial content streaming
