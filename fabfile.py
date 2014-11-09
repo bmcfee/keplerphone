@@ -62,8 +62,8 @@ def install_dependencies():
         'ipython',
         'swig',
         'pkg-config',
-        'libfreetype6',
-        'libpng3',
+        'libfreetype6-dev',
+        'libpng3-dev',
     ]
     sudo('apt-get -y update')
     sudo('apt-get -y upgrade')
