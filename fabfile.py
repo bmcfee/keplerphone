@@ -65,7 +65,7 @@ def install_dependencies():
         'pkg-config',
         'libfreetype6-dev',
         'libpng3-dev',
-        'blas-dev',
+        'libblas-dev',
     ]
     sudo('apt-get -y update')
     sudo('apt-get -y upgrade')
