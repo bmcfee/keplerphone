@@ -50,6 +50,7 @@ $(document).ready(function() {
         $('#koi-free').val(prekic);
         $('#koi-free-radio').prop('checked', true);
         $('#plot').attr('src', '/img/' + prekic);
+        update_share('Listening to KIC' + prekic + ' on The KeplerPhone');
     }
 
     $('#playfree').click(play);
@@ -64,13 +65,22 @@ $(document).ready(function() {
     });
 });
 
+function get_url() {
+
+    var url = window.location.origin + '/' +  $('#prekic').val() + '/' + $('#prescale').val() + '/' + $('#speed').val();
+    
+    return url;
+}
+
 function update_share(text) {
 
-    var url = window.location.origin + '/' +  $('#prekic').val() + '/' + $('#prescale').val();
-    
+    var url = get_url();
+
     var href = 'http://twitter.com/intent/tweet?text=' + encodeURIComponent(text)
              + '&hashtags=keplerphone'
              + '&url=' + encodeURIComponent(url) ;
 
     $('#share').attr('href', href);
+
+    $('#linkurl').val(url);
 }
