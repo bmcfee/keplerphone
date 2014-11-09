@@ -11,9 +11,9 @@ import os
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 import prettyplotlib as ppl
-# mpl.rc('text', color='w')
-# mpl.rc('xtick', color='w')
-# mpl.rc('ytick', color='w')
+mpl.rc('text', color='w')
+mpl.rc('xtick', color='w')
+mpl.rc('ytick', color='w')
 mpl.rc('axes', edgecolor='w')
 
 SCALES = {  'Blues': [0, 3, 5, 6, 7, 10],
@@ -208,8 +208,8 @@ def make_image(kic):
         ppl.plot(t[idx], f[idx])
 
     plt.title('kic=%d' % kic)
-    plt.xlabel('Time')
-    plt.ylabel('Flux')
+    plt.xlabel('Time', color='w')
+    plt.ylabel('Flux', color='w')
     plt.axis('tight')
 
     plt.tight_layout()

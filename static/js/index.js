@@ -21,11 +21,9 @@ function play() {
         kic = $('#koi-free').val();
     }
 
-//     $.ajax({url: '/img/' + kic}).done(update_img);
     $('#plot').attr('src', '/img/' + kic);
-    var url = '/keplerphone/' + kic + '/' + scale;
 
-    MIDIjs.play(url);
+    MIDIjs.play('/keplerphone/' + kic + '/' + scale);
 }
 
 
