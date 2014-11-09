@@ -64,6 +64,7 @@ def install_dependencies():
         'pkg-config',
         'libfreetype6-dev',
         'libpng3-dev',
+        'libasound2-dev',
     ]
     sudo('apt-get -y update')
     sudo('apt-get -y upgrade')
