@@ -34,6 +34,12 @@ $(document).ready(function() {
     $.ajax({url: '/ids', dataType: 'json'}).done(update_kois);
     $.ajax({url: '/scales', dataType: 'json'}).done(update_scales);
 
+    var prekic = $('#prekic').val()
+    if (prekic != "None") {
+        $('#koi-free').val(prekic);
+        $('#koi-free-radio').prop('checked', true);
+    }
+
     $('#playfree').click(play);
 
     $('#stop').click(function() { MIDIjs.stop(); });

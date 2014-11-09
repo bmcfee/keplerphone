@@ -58,10 +58,11 @@ def get_ids():
     return json.encode(keplerphone.get_ids())
 
 
+@app.route('/<int:kic>')
 @app.route('/')
-def index():
+def index(kic=None):
     '''Top-level web page'''
-    return flask.render_template('index.html')
+    return flask.render_template('index.html', kic=kic)
 
 
 # -- partial content streaming

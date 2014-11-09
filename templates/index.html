@@ -25,7 +25,7 @@
             <div class=".col-md-6 pull-right">
                 <img id="plot" width="640", height="480" />
             </div>
-            <div class=".col-md-4 container">
+            <div class=".col-md-6 container">
                 <div class="form-group" role="form">
                     <div>
                         <label for="koi" class="control-label">
@@ -34,7 +34,7 @@
                         </select>
 
                         <label for="koi-free" class="control-label">
-                        <input type="radio" name="source" value="free">
+                        <input type="radio" name="source" value="free" id="koi-free-radio">
                 Or pick your favorite KIC <a href="http://archive.stsci.edu/kepler/planet_candidates.html">here</a>!
                         </label>
                         <input class="form-control" id="koi-free" style="width: 15em;">
@@ -47,12 +47,18 @@
                     <select class="form-control" id="scale" style="width: 15em;">
                     </select>
                 </div>
-                <button id="playfree" class="btn btn-lg btn-primary" type="button">
-                    <span class="glyphicon glyphicon-play"></span> 
-                </button>
-                <button id="stop" class="btn btn-danger" type="button">
-                    <span class="glyphicon glyphicon-stop"></span> 
-                </button>
+
+                <div style="text-align: center">
+                    <button id="share" class="btn btn-info" type="button">
+                        <span class="glyphicon glyphicon-share"></span> 
+                    </button>
+                    <button id="playfree" class="btn btn-lg btn-primary" type="button">
+                        <span class="glyphicon glyphicon-play"></span> 
+                    </button>
+                    <button id="stop" class="btn btn-danger" type="button">
+                        <span class="glyphicon glyphicon-stop"></span> 
+                    </button>
+                </div>
             </div>
         </div>
     </body>
@@ -65,4 +71,6 @@
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 
     <script src="/static/js/index.js"></script>
+
+    <input type="hidden" id="prekic" value="{{ kic }}"></input>
 </html>
