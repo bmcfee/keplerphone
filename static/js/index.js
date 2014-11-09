@@ -28,8 +28,12 @@ function play() {
 
     $('#plot').attr('src', '/img/' + kic);
 
-    MIDIjs.play('/keplerphone/' + kic + '/' + scale);
+    $('#prekic').val(kic);
+    $('#prescale').val(scale);
 
+    update_share('Listening to KIC' + kic + ' on the KeplerPhone');
+
+    MIDIjs.play('/keplerphone/' + kic + '/' + scale);
 }
 
 
@@ -49,3 +53,19 @@ $(document).ready(function() {
 
     $('#stop').click(function() { MIDIjs.stop(); });
 });
+
+function update_share(text) {
+
+//     var btn = $('<a target="_blank"></a>');
+//     btn.addClass('btn btn-sm btn-primary hide');
+//     btn.addClass('pull-right');
+//     btn.append('<img src="https://dev.twitter.com/sites/default/files/images_documentation/bird_gray_16.png" alt="Share on Twitter"></img>') 
+    
+    var url = window.location.origin + '/' +  $('#prekic').val() + '/' + $('#prescale').val();
+    
+    var href = 'http://twitter.com/intent/tweet?text=' + encodeURIComponent(text)
+             + '&hashtags=keplerphone'
+             + '&url=' + encodeURIComponent(url) ;
+
+    $('#share').attr('href', href);
+}
