@@ -29,6 +29,8 @@ SCALES = {  'Blues': [0, 3, 5, 6, 7, 10],
             'Kafi': [0, 2, 3, 5, 7, 9, 10],
             'Not Exactly Todi': [0, 1, 4, 6, 7, 8, 11],
             'Whole Tone': [0, 2, 4, 6, 8, 10],
+            'Octatonic': [0, 2, 3, 5, 6, 8, 9, 11],
+
 }
 
 INSTRUMENTS = ['Overdriven guitar', 'Bag pipe', 'Ocarina']
