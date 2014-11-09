@@ -10,6 +10,11 @@ function update_scales(data) {
     $.each(data, function(s) {
         $('#scale').append($('<option>', {value : data[s]}).text(data[s]));
     });
+
+    var prekic = $('#prescale').val()
+    if (prescale != "None") {
+        $('#scale').val(prekic);
+    }
 }
 
 function play() {
