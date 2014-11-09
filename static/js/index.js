@@ -12,29 +12,27 @@ function update_scales(data) {
     });
 }
 
-function play_selected() {
+function play() {
+    var source = $('input[name=source]:checked').val();
+
     var kic = $('#koi').val();
-
     var scale = $('#scale').val();
+
+    if (source == 'free') {
+        kic = $('#koi-free').val();
+    }
 
     var url = '/keplerphone/' + kic + '/' + scale;
 
     MIDIjs.play(url);
 }
 
-function play_free() {
-    var kic = $('#koi-free').val();
-
-    var scale = $('#scale').val();
-
-    var url = '/keplerphone/' + kic + '/' + scale;
-
-    MIDIjs.play(url);
-
-}
 
 $(document).ready(function() {
 
     $.ajax({url: '/ids', dataType: 'json'}).done(update_kois);
     $.ajax({url: '/scales', dataType: 'json'}).done(update_scales);
+
+    $('#playfree').click(play);
+
 });

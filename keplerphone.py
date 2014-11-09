@@ -53,14 +53,6 @@ def get_light_curves(kic):
     return time, flux
 
 
-def clean_flux(f_orig, aggregate=np.median):
-
-    f = f_orig.copy()
-    f[~np.isfinite(f)] = aggregate(f[np.isfinite(f)])
-
-    return f
-
-
 def get_spikes(flux, w=15):
 
     mf = scipy.signal.medfilt(-flux, kernel_size=w)
@@ -240,8 +232,8 @@ def get_ids():
 
     client = kplr.API()
 
-    kois = client.kois(where="koi_period<3", sort="koi_period")
+    kois = client.kois(where="koi_period<3", sort="koi_period")[:20]
 
     objs = [{'id': k.kepid, 'name': k.kepoi_name} for k in kois]
 
-    return objs[:50]
+    return objs

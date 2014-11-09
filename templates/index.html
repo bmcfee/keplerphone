@@ -9,44 +9,46 @@
 
         <!-- Optional theme -->
         <link   rel="stylesheet"
-                href="//netdna.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap-theme.min.css">
+                href="//cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.0/darkly/bootstrap.min.css">
         
         <title>MIDI .... in SPACE</title>
 
     </head>
 
     <body>
-        <div class="container-fluid">
-        <div class="row jumbotron">
+        <div class="jumbotron" style="text-align: center">
             <h1>Keplerphone</h1>
         </div>
 
-        <div class="col-md-6">
-            <div class="form-group">
-                <div class=".col-md-4">
-                    <label for="koi">Kepler objects (short period)</label>
-                    <select class="form-control" id="koi" style="width: 15em;">
+        <div class="container">
+            <div class=".col-md-6">
+                <div class="form-group" role="form">
+                    <div class="pull-right">
+                        <button id="playfree" class="primary" style="font-size:48pt">
+                            <span class="glyphicon glyphicon-play-circle"></span> 
+                        </button>
+                    </div>
+                    <div>
+                        <label for="koi" class="control-label">
+                        <input id="koi-fixed" type="radio" name="source" value="fixed" checked> Kepler objects (short period)</label>
+                        <select class="form-control" id="koi" style="width: 15em;">
+                        </select>
+
+                        <label for="koi-free" class="control-label">
+                        <input type="radio" name="source" value="free">
+                Or pick your favorite KIC <a href="http://archive.stsci.edu/kepler/planet_candidates.html">here</a>!
+                        </label>
+                        <input class="form-control" id="koi-free" style="width: 15em;">
+                        </input>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="scale" class="control-label">Scale</label>
+                    <select class="form-control" id="scale" style="width: 15em;">
                     </select>
                 </div>
-                <div class=".col-md-4">
-                    <label for="koi-free">
-            Or pick your favorite KIC <a href="http://archive.stsci.edu/kepler/planet_candidates.html">here</a>!
-                    </label>
-                    <input class="form-control" id="koi-free" style="width: 15em;">
-                    </input>
-                </div>
-
             </div>
-
-            <div class="form-group">
-                <label for="scale">Scale</label>
-                <select class="form-control" id="scale" style="width: 15em;">
-                </select>
-            </div>
-        </div>
-
-        <div class="container-fluid">
-        </div>
         </div>
     </body>
 
@@ -55,7 +57,7 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     
     <!-- Latest compiled and minified JavaScript -->
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 
     <script src="/static/js/index.js"></script>
 </html>
