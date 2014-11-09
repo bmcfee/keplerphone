@@ -56,11 +56,6 @@ $(document).ready(function() {
 
 function update_share(text) {
 
-//     var btn = $('<a target="_blank"></a>');
-//     btn.addClass('btn btn-sm btn-primary hide');
-//     btn.addClass('pull-right');
-//     btn.append('<img src="https://dev.twitter.com/sites/default/files/images_documentation/bird_gray_16.png" alt="Share on Twitter"></img>') 
-    
     var url = window.location.origin + '/' +  $('#prekic').val() + '/' + $('#prescale').val();
     
     var href = 'http://twitter.com/intent/tweet?text=' + encodeURIComponent(text)
