@@ -29,7 +29,7 @@ SCALES = {  'Blues': [0, 3, 5, 6, 7, 10],
             'Kafi': [0, 2, 3, 5, 7, 9, 10],
 }
 
-INSTRUMENTS = ['Overdriven guitar', 'Synth strings 1', 'Synth strings 2']
+INSTRUMENTS = ['Overdriven guitar', 'Bag pipe', 'Synth strings 2']
 DRUMS       = ['Splash cymbal', 'Bass drum 1', 'Acoustic snare']
 
 DURATION = 90.0
