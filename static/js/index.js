@@ -47,6 +47,7 @@ $(document).ready(function() {
     if (prekic != "None") {
         $('#koi-free').val(prekic);
         $('#koi-free-radio').prop('checked', true);
+        $('#plot').attr('src', '/img/' + prekic);
     }
 
     $('#playfree').click(play);
