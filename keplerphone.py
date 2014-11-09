@@ -206,7 +206,7 @@ def make_music(kic, duration=90.0, my_scale='jazz_minor'):
 
         midi_obj = make_midi(time[i+1], flux[i+1], [b + 7 for b in my_scale], 
                              duration, 
-                             n_octaves=3, note_min=24, 
+                             n_octaves=2, note_min=12, 
                              lead_name='SynthStrings 2',
                              drum_name='Bass drum 1',
                              midi_obj=midi_obj, time_offset=i * duration)
