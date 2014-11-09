@@ -249,8 +249,6 @@ def make_music(kic, scale='Kafi', speed=2.0):
 
     my_scale = SCALES[scale]
 
-    print my_duration
-
     for i in range(4):
         midi_obj = make_midi(time[i], flux[i], my_scale,
                              my_duration,
