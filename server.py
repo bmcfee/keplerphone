@@ -39,7 +39,8 @@ def run(**kwargs):
 @app.route('/keplerphone/<int:kic>/<scale>')
 def make_music(kic, scale):
 
-    return flask.send_file(keplerphone.make_music(kic, scale=scale))
+    return flask.send_file(keplerphone.make_music(kic, scale=scale), 
+                           mimetype='audio/x-midi')
 
 # @app.route('/audio/<int:track_id>')
 # def get_track_audio(track_id):
