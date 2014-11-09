@@ -12,7 +12,7 @@ function update_scales(data) {
     });
 }
 
-function play_music() {
+function play_selected() {
     var kic = $('#koi').val();
 
     var scale = $('#scale').val();
@@ -20,6 +20,17 @@ function play_music() {
     var url = '/keplerphone/' + kic + '/' + scale;
 
     MIDIjs.play(url);
+}
+
+function play_free() {
+    var kic = $('#koi-free').val();
+
+    var scale = $('#scale').val();
+
+    var url = '/keplerphone/' + kic + '/' + scale;
+
+    MIDIjs.play(url);
+
 }
 
 $(document).ready(function() {

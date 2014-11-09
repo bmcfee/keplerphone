@@ -15,7 +15,7 @@ SCALES = {  'Blues': [0, 3, 5, 6, 7, 10],
             'Pentatonic': [0, 2, 5, 7, 9],
             'Chromatic': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
             'Major': [0, 2, 4, 5, 7, 9, 11],
-            'Minor': [0, 2, 3, 5, 7, 9, 11]
+            'Minor': [0, 2, 3, 5, 7, 9, 10]
 }
 
 INSTRUMENTS = ['Overdriven guitar', 'Synth strings 1', 'Synth strings 2']
@@ -240,7 +240,7 @@ def get_ids():
 
     client = kplr.API()
 
-    kois = client.kois(where="koi_period<6", sort="koi_period")
+    kois = client.kois(where="koi_period<3", sort="koi_period")
 
     objs = [{'id': k.kepid, 'name': k.kepoi_name} for k in kois]
 

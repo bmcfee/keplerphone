@@ -42,10 +42,6 @@ def make_music(kic, scale):
     return flask.send_file(keplerphone.make_music(kic, scale=scale), 
                            mimetype='audio/x-midi')
 
-# @app.route('/audio/<int:track_id>')
-# def get_track_audio(track_id):
-#     return send_file_partial(data_layer.get_track_audio(track_id), cache_timeout=0)
-
 @app.route('/scales')
 def get_scales():
     return json.encode(keplerphone.get_scales())
