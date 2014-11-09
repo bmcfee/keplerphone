@@ -61,7 +61,7 @@ def get_ids():
 @app.route('/<int:kic>/<scale>')
 @app.route('/<int:kic>')
 @app.route('/')
-def index(kic=None, scale=None):
+def index(kic=4912991, scale='Kafi'):
     '''Top-level web page'''
     return flask.render_template('index.html', kic=kic, scale=scale)
 

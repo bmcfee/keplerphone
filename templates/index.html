@@ -12,13 +12,14 @@
         <link   rel="stylesheet"
                 href="//cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.0/darkly/bootstrap.min.css">
         
-        <title>MIDI .... in SPACE</title>
+        <title>The Keplerphone</title>
 
     </head>
 
     <body>
         <div class="jumbotron" style="text-align: center">
             <h1>The Keplerphone</h1>
+            <p>Jams from Space</p>
         </div>
 
         <div class="container">
@@ -35,7 +36,7 @@
 
                         <label for="koi-free-radio" class="control-label">
                         <input type="radio" name="source" value="free" id="koi-free-radio">
-                Or pick your favorite KIC <a href="http://archive.stsci.edu/kepler/planet_candidates.html">here</a>!
+                Or pick your favorite KIC <a target="_blank" href="http://archive.stsci.edu/kepler/planet_candidates.html">here</a>!
                         </label>
                         <input class="form-control" id="koi-free" style="width: 15em;">
                         </input>
@@ -62,15 +63,60 @@
             </div>
         </div>
         <div class="nav navbar navbar-fixed-bottom" style="font-size: 12px;">
-            <div class="pull-right navbar-text">
-                <a href="http://jonathanmarmor.com/">Jonathan Marmor</a>
-                <p> <a href="https://twitter.com/jonathanmarmor">@jonathanmarmor</a> </p>
+            <div class="navbar-text">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                    What is the Keplerphone?
+                </button>
             </div>
             <div class="pull-right navbar-text">
-                <a href="http://bmcfee.github.io/">Brian McFee</a>
-                <p> <a href="https://twitter.com/functiontelechy">@functiontelechy</a> </p>
+                <a target="_blank" href="http://jonathanmarmor.com/">Jonathan Marmor</a>
+                <p> <a target="_blank" href="https://twitter.com/jonathanmarmor">@jonathanmarmor</a> </p>
+            </div>
+            <div class="pull-right navbar-text">
+                <a target="_blank" href="http://bmcfee.github.io/">Brian McFee</a>
+                <p> <a target="_blank" href="https://twitter.com/functiontelechy">@functiontelechy</a> </p>
             </div>
         </div>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">What is the Keplerphone?</h4>
+      </div>
+      <div class="modal-body">
+        <img class="pull-right"
+        src="http://upload.wikimedia.org/wikipedia/commons/thumb/9/91/NASA-KeplerSpaceTelescope-ArtistConcept-20141027.jpg/320px-NASA-KeplerSpaceTelescope-ArtistConcept-20141027.jpg" />
+        <p>
+            The Keplerphone is a music generation system powered by the <a target="_blank" href="http://en.wikipedia.org/wiki/Kepler_(spacecraft)">Kepler space telescope</a>.  Sonifying astronomical data
+            may well help to expose the presence of exoplanets, which may be ripe for human conquest at some later point.
+        </p>
+        <p>
+            Also, interstellar rock.
+        </p>
+        </div>
+        <div class="modal-body">
+        <p>
+            For a given star (or <em>Kepler object of interest</em> KOI), Kepler provides a time series of light-curve values, chunked up into quarters over a span of roughly two years.
+        </p>
+        <p>
+            The sonification first detects transiting exoplanets by looking for sharp dips in the light curve, and synthesizes these events as percussion elements. The remaining flux contours are quantized and mapped onto a user-selected scale (e.g., pentatonic). Three quarters of data are played simultaneously with different instrument patches, though the individual time series are not phase aligned for the planet's orbit.
+        </p>
+        <p>
+            The final sonification is rendered as midi using <a target="_blank" href="https://github.com/craffel/pretty-midi/">pretty-midi</a> and played back in the browser with <a
+            target="_blank" href="http://www.midijs.net/">MIDIjs</a>.
+        </p>
+        <p>
+            Also there are some colorful plots to make it more cheerful. And you can share your favorite space jams with your friends via Twitter.
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
     </body>
 
     <script type='text/javascript' src='http://www.midijs.net/lib/midi.js'></script>
