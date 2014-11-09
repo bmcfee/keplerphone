@@ -27,20 +27,20 @@ def get_light_curves(kic):
 
     # Get a list of light curve datasets.
     lcs = star.get_light_curves(short_cadence=False)
-    
+
     time, flux = [], []
     for lc in lcs:
         with lc.open() as f:
             # The lightcurve data are in the first FITS HDU.
             hdu_data = f[1].data
-            
+
             time.append(hdu_data["time"])
             flux.append(hdu_data["sap_flux"])
 
             idx = np.isfinite(time[-1]) & np.isfinite(flux[-1])
             time[-1] = time[-1][idx]
             flux[-1] = flux[-1][idx]
-    
+
             if time[-1].max() - time[-1].min() < 70.0:
                 time.pop(-1)
                 flux.pop(-1)
@@ -48,35 +48,35 @@ def get_light_curves(kic):
 
 
 def clean_flux(f_orig, aggregate=np.median):
-    
+
     f = f_orig.copy()
     f[~np.isfinite(f)] = aggregate(f[np.isfinite(f)])
-    
+
     return f
 
 
 def get_spikes(flux, w=15):
-    
+
     mf = scipy.signal.medfilt(-flux, kernel_size=w)
-    
+
     mf[mf == 0] = 1.0
-    
+
     z = flux / mf
-    
+
     thresh = np.median(z)
-    
+
     z[z < thresh] = thresh
     z = z - z.min()
     z = z / z.max()
-    
+
     return z
 
 
 def get_contour(flux, w=15):
-    
+
     # eject the spikes
     f_filt = scipy.signal.medfilt(flux, kernel_size=w)
-    
+
     f_filt = scipy.signal.detrend(f_filt)
     f_filt = f_filt - f_filt.min()
     f_filt = f_filt / f_filt.max()
@@ -84,119 +84,105 @@ def get_contour(flux, w=15):
 
 
 def quantize_contour(flux, n_scale_tones=6, n_octaves=4):
-    
+
     n_bins = n_scale_tones * n_octaves
-    
-    quantiles = scipy.stats.mstats.mquantiles(flux, 
-                                              prob=np.linspace(0, 1.0, n_bins, endpoint=False))
-    
+
+    quantiles = scipy.stats.mstats.mquantiles(flux,
+                                              prob=np.linspace(0, 1., n_bins,
+                                                               endpoint=False))
+
     z1 = np.greater.outer(quantiles, flux)
-    
+
     return np.argmax(z1, axis=0)
 
 
 def sustain_tones(intervals, qflux):
-    
-    dflux = np.diff(qflux)
-    
+
     changes = np.argwhere(qflux[:-1] != qflux[1:]).flatten()
-    
     changes = np.concatenate([[0], changes])
-    
+
     int_out = []
     flux_out = []
-    
+
     for s, t in zip(changes[:-1], changes[1:]):
-        int_out.append( (intervals[s][0], intervals[t][0] ) )
+        int_out.append((intervals[s][0], intervals[t][0]))
         flux_out.append(qflux[s])
-        
+
     return int_out, flux_out
 
 
-def make_midi(time, flux, scale, duration, 
-              n_octaves=4, time_offset=0.0, note_min=48, 
-              lead_name='Distortion guitar', 
-              drum_name='Splash cymbal', 
+def make_midi(time, flux, scale, duration,
+              n_octaves=4, time_offset=0.0, note_min=48,
+              lead_name='Distortion guitar',
+              drum_name='Splash cymbal',
               midi_obj=None):
-    
+
     if midi_obj is None:
         midi_obj = pretty_midi.PrettyMIDI()
-    
+
     # Pick a voice
     program = pretty_midi.instrument_name_to_program(lead_name)
     inst = pretty_midi.Instrument(program=program)
 
     # Quantize the flux
-    qflux = quantize_contour(get_contour(flux), 
-                             n_scale_tones=len(scale), 
+    qflux = quantize_contour(get_contour(flux),
+                             n_scale_tones=len(scale),
                              n_octaves=n_octaves)
-    
+
     tones = note_min + np.add.outer(12 * np.arange(n_octaves), scale).ravel()
-    
+
     # Iterate over note names, which will be converted to note number later
     time = time - time.min()
-    
+
     time_scale = duration / float(time.max())
-    
+
     time = time * time_scale + time_offset
     intervals = zip(time[:-1], time[1:])
-    
-    
+
     for t, note_t in zip(*sustain_tones(intervals, qflux)):
-        # Retrieve the MIDI note number for this note name
-        #note_number = pretty_midi.note_name_to_number(note_name)
-        
+
         # These are the zeros, skip them
         if note_t == note_min:
             continue
-            
-        tones[note_t]
 
-        # Create a Note instance for this note, starting at 0s and ending at .5s
-        note = pretty_midi.Note(velocity=100, 
-                                pitch=tones[note_t], 
-                                start=t[0], 
+        # Create a Note instance for this note
+        note = pretty_midi.Note(velocity=100,
+                                pitch=tones[note_t],
+                                start=t[0],
                                 end=t[1])
-        
-        
+
         # Add it to our cello instrument
         inst.notes.append(note)
 
     # Add the cello instrument to the PrettyMIDI object
     midi_obj.instruments.append(inst)
 
-    
     # Now do the percussion
     drum_beats = get_spikes(flux)
     program = 20
     note_t = pretty_midi.drum_name_to_note_number(drum_name)
-    
+
     good_idx = librosa.peak_pick(drum_beats, 3, 3, 5, 5, 0.5, 10)
-    
+
     inst = pretty_midi.Instrument(20, is_drum=True)
-    
+
     for i in good_idx:
         t = intervals[i]
-        note = pretty_midi.Note(velocity=100, 
-                                pitch=note_t, 
-                                start=t[0], 
+        note = pretty_midi.Note(velocity=100,
+                                pitch=note_t,
+                                start=t[0],
                                 end=t[1])
-        
+
         # Add it to our cello instrument
         inst.notes.append(note)
-    
+
     midi_obj.instruments.append(inst)
-    
+
     return midi_obj
 
 
-# kic = 4912991
-# kic = 12351927
-#kic = 6805414
-#kic = 3644071
-
 def make_music(kic, scale='jazz_minor'):
-    
+
     time, flux = get_light_curves(kic)
 
     midi_obj = pretty_midi.PrettyMIDI()
@@ -205,31 +191,29 @@ def make_music(kic, scale='jazz_minor'):
 
     for i in range(4):
         midi_obj = make_midi(time[i], flux[i], my_scale,
-                             DURATION, 
-                             n_octaves=3, note_min=48, 
+                             DURATION,
+                             n_octaves=3, note_min=48,
                              lead_name='Overdriven guitar',
                              drum_name='Splash cymbal',
                              midi_obj=midi_obj, time_offset=i * DURATION)
 
-        midi_obj = make_midi(time[i+1], flux[i+1], [b + 7 for b in my_scale], 
-                             DURATION, 
-                             n_octaves=2, note_min=12, 
+        midi_obj = make_midi(time[i+1], flux[i+1], [b + 7 for b in my_scale],
+                             DURATION,
+                             n_octaves=2, note_min=12,
                              lead_name='Clarinet',
                              drum_name='Bass drum 1',
                              midi_obj=midi_obj, time_offset=i * DURATION)
-    
-        midi_obj = make_midi(time[i+1], flux[i+1], [b + 5 for b in my_scale], 
-                             DURATION, 
+
+        midi_obj = make_midi(time[i+1], flux[i+1], [b + 5 for b in my_scale],
+                             DURATION,
                              n_octaves=2, note_min=36,
                              lead_name='Cello',
                              drum_name='Acoustic snare',
                              midi_obj=midi_obj, time_offset=i*DURATION)
- 
-    # audio_data = midi_obj.fluidsynth(fs=22050, sf2_path=sf2)
 
     output_name = os.path.join('.', 'data',
-                                os.extsep.join(['{:d}-{:s}'.format(kic, scale),
-                                                'mid']))
+                               os.extsep.join(['{:d}-{:s}'.format(kic, scale),
+                                               'mid']))
 
     output_name = os.path.abspath(output_name)
 
