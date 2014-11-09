@@ -61,7 +61,9 @@ def install_dependencies():
         'htop',
         'ipython',
         'swig',
-        'pkg-config'
+        'pkg-config',
+        'freetype',
+        'png',
     ]
     sudo('apt-get -y update')
     sudo('apt-get -y upgrade')
