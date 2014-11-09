@@ -13,6 +13,8 @@ SCALES = {  'blues': [0, 3, 5, 6, 7, 10],
             'pentatonic': [0, 2, 5, 7, 9],
 }
 
+DURATION = 60.0
+
 def get_light_curves(kic):
 
     client = kplr.API()
@@ -190,7 +192,7 @@ def make_midi(time, flux, scale, duration,
 #kic = 6805414
 #kic = 3644071
 
-def make_music(kic, duration=90.0, my_scale='jazz_minor'):
+def make_music(kic, sf2, my_scale='jazz_minor'):
     
     time, flux = get_light_curves(kic)
 
@@ -198,30 +200,29 @@ def make_music(kic, duration=90.0, my_scale='jazz_minor'):
 
     for i in range(4):
         midi_obj = make_midi(time[i], flux[i], my_scale,
-                             duration, 
+                             DURATION, 
                              n_octaves=3, note_min=48, 
                              lead_name='Overdriven guitar',
                              drum_name='Splash cymbal',
-                             midi_obj=midi_obj, time_offset=i * duration)
+                             midi_obj=midi_obj, time_offset=i * DURATION)
 
         midi_obj = make_midi(time[i+1], flux[i+1], [b + 7 for b in my_scale], 
-                             duration, 
+                             DURATION, 
                              n_octaves=2, note_min=12, 
                              lead_name='SynthStrings 2',
                              drum_name='Bass drum 1',
-                             midi_obj=midi_obj, time_offset=i * duration)
+                             midi_obj=midi_obj, time_offset=i * DURATION)
     
         midi_obj = make_midi(time[i+1], flux[i+1], [b + 5 for b in my_scale], 
-                             duration, 
+                             DURATION, 
                              n_octaves=2, note_min=36,
                              lead_name='SynthStrings 1',
                              drum_name='Acoustic snare',
-                             midi_obj=midi_obj, time_offset=i*duration)
+                             midi_obj=midi_obj, time_offset=i*DURATION)
  
-    audio_data = midi_obj.fluidsynth(fs=22050,
-                                     sf2_path='/usr/share/sounds/sf2/FluidR3_GM.sf2')
+    audio_data = midi_obj.fluidsynth(fs=22050, sf2_path=sf2)
 
-    # Save the audio as mp3 and spit it back
+    # Save the audio as mp3 and spit back the id
 
     pass
 
