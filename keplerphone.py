@@ -22,11 +22,12 @@ SCALES = {  'Blues': [0, 3, 5, 6, 7, 10],
             'Chromatic': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
             'Major': [0, 2, 4, 5, 7, 9, 11],
             'Minor': [0, 2, 3, 5, 7, 9, 10],
-            'Marwa': [0, 1, 4, 6, 9, 11],
-            'Todi': [0, 1, 4, 6, 7, 8, 11],
+            'Purvi': [0, 1, 4, 6, 9, 11],
+            'Todi': [0, 1, 3, 6, 7, 8, 10],
             'Bhairav': [0, 1, 4, 5, 7, 8, 11],
             'Bhairavi': [0, 1, 3, 5, 7, 8, 10],
             'Kafi': [0, 2, 3, 5, 7, 9, 10],
+            'Not Exactly Todi': [0, 1, 4, 6, 7, 8, 11],
 }
 
 INSTRUMENTS = ['Overdriven guitar', 'Synth strings 1', 'Synth strings 2']
@@ -191,7 +192,7 @@ def make_midi(time, flux, scale, duration,
 
 def make_image(kic):
 
-    output_name = os.path.join('.', 'data', 
+    output_name = os.path.join('.', 'data',
                                os.extsep.join(['{:d}'.format(kic), 'png']))
 
     output_name = os.path.abspath(output_name)
