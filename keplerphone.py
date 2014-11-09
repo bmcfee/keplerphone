@@ -290,7 +290,7 @@ def get_ids():
 
     client = kplr.API()
 
-    kois = client.kois(where="koi_period<3", sort="koi_period")[:20]
+    kois = client.kois(where="koi_period<3", sort="koi_period")[:50]
 
     objs = [{'id': k.kepid, 'name': k.kepoi_name} for k in kois]
 
