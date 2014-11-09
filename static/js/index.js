@@ -24,7 +24,9 @@ function play() {
     $('#plot').attr('src', '/img/' + kic);
 
     MIDIjs.play('/keplerphone/' + kic + '/' + scale);
+
 }
+
 
 
 $(document).ready(function() {
@@ -34,4 +36,5 @@ $(document).ready(function() {
 
     $('#playfree').click(play);
 
+    $('#stop').click(function() { MIDIjs.stop(); });
 });

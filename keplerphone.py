@@ -30,7 +30,7 @@ SCALES = {  'Blues': [0, 3, 5, 6, 7, 10],
             'Not Exactly Todi': [0, 1, 4, 6, 7, 8, 11],
 }
 
-INSTRUMENTS = ['Overdriven guitar', 'Bag pipe', 'Synth strings 2']
+INSTRUMENTS = ['Overdriven guitar', 'Bag pipe', 'Ocarina']
 DRUMS       = ['Splash cymbal', 'Bass drum 1', 'Acoustic snare']
 
 DURATION = 90.0
@@ -252,7 +252,7 @@ def make_music(kic, scale='jazz_minor'):
                              drum_name=DRUMS[1],
                              midi_obj=midi_obj, time_offset=i * DURATION)
 
-        midi_obj = make_midi(time[i+1], flux[i+1], [b + 5 for b in my_scale],
+        midi_obj = make_midi(time[i+1], flux[i+1], [b + 7 for b in my_scale],
                              DURATION,
                              n_octaves=2, note_min=36,
                              lead_name=INSTRUMENTS[2],
