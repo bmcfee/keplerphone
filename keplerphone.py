@@ -6,6 +6,8 @@ import kplr
 import scipy.signal
 import numpy as np
 
+import os
+
 SCALES = {  'blues': [0, 3, 5, 6, 7, 10],
             'jazz_minor': [0, 2, 3, 5, 7, 9, 11],
             'marwa': [0, 1, 4, 6, 9, 11],
@@ -13,7 +15,8 @@ SCALES = {  'blues': [0, 3, 5, 6, 7, 10],
             'pentatonic': [0, 2, 5, 7, 9],
 }
 
-DURATION = 60.0
+DURATION = 90.0
+
 
 def get_light_curves(kic):
 
@@ -192,11 +195,13 @@ def make_midi(time, flux, scale, duration,
 #kic = 6805414
 #kic = 3644071
 
-def make_music(kic, sf2, my_scale='jazz_minor'):
+def make_music(kic, scale='jazz_minor'):
     
     time, flux = get_light_curves(kic)
 
     midi_obj = pretty_midi.PrettyMIDI()
+
+    my_scale = SCALES[scale]
 
     for i in range(4):
         midi_obj = make_midi(time[i], flux[i], my_scale,
@@ -209,22 +214,28 @@ def make_music(kic, sf2, my_scale='jazz_minor'):
         midi_obj = make_midi(time[i+1], flux[i+1], [b + 7 for b in my_scale], 
                              DURATION, 
                              n_octaves=2, note_min=12, 
-                             lead_name='SynthStrings 2',
+                             lead_name='Clarinet',
                              drum_name='Bass drum 1',
                              midi_obj=midi_obj, time_offset=i * DURATION)
     
         midi_obj = make_midi(time[i+1], flux[i+1], [b + 5 for b in my_scale], 
                              DURATION, 
                              n_octaves=2, note_min=36,
-                             lead_name='SynthStrings 1',
+                             lead_name='Cello',
                              drum_name='Acoustic snare',
                              midi_obj=midi_obj, time_offset=i*DURATION)
  
-    audio_data = midi_obj.fluidsynth(fs=22050, sf2_path=sf2)
+    # audio_data = midi_obj.fluidsynth(fs=22050, sf2_path=sf2)
 
-    # Save the audio as mp3 and spit back the id
+    output_name = os.path.join('.', 'data',
+                                os.extsep.join(['{:d}-{:s}'.format(kic, scale),
+                                                'mid']))
 
-    pass
+    output_name = os.path.abspath(output_name)
+
+    midi_obj.write(output_name)
+
+    return output_name
 
 
 def get_scales():
@@ -236,8 +247,8 @@ def get_ids():
 
     client = kplr.API()
 
-    kois = client.kois(where="koi_period>50", sort="koi_period")
+    kois = client.kois(where="koi_period<6", sort="koi_period")
 
-    objs = [{'id': k.kepid, 'name': k.koi_name} for k in kois]
+    objs = [{'id': k.kepid, 'name': k.kepoi_name} for k in kois]
 
-    return objs
+    return objs[:50]

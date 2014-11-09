@@ -36,12 +36,10 @@ def run(**kwargs):
     app.run(**kwargs)
 
 
-@app.route('/keplerphone/<int:kic>/<str:scale>')
+@app.route('/keplerphone/<int:kic>/<scale>')
 def make_music(kic, scale):
 
-    return json.encode(keplerphone.make_music(kic,
-                                              app.config['sf2'],
-                                              my_scale=scale))
+    return flask.send_file(keplerphone.make_music(kic, scale=scale))
 
 # @app.route('/audio/<int:track_id>')
 # def get_track_audio(track_id):
