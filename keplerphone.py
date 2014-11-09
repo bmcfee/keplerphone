@@ -8,14 +8,22 @@ import numpy as np
 
 import os
 
+import matplotlib as mpl
+import matplotlib.pyplot as plt
+import prettyplotlib as ppl
+mpl.rc('axes', edgecolor='w')
+
 SCALES = {  'Blues': [0, 3, 5, 6, 7, 10],
             'Jazz_minor': [0, 2, 3, 5, 7, 9, 11],
-            'Marwa': [0, 1, 4, 6, 9, 11],
-            'Todi': [0, 1, 4, 6, 7, 8, 11],
             'Pentatonic': [0, 2, 5, 7, 9],
             'Chromatic': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
             'Major': [0, 2, 4, 5, 7, 9, 11],
-            'Minor': [0, 2, 3, 5, 7, 9, 10]
+            'Minor': [0, 2, 3, 5, 7, 9, 10],
+            'Marwa': [0, 1, 4, 6, 9, 11],
+            'Todi': [0, 1, 4, 6, 7, 8, 11],
+            'Bhairav': [0, 1, 4, 5, 7, 8, 11],
+            'Bhairavi': [0, 1, 3, 5, 7, 8, 10],
+            'Kafi': [0, 2, 3, 5, 7, 9, 10],
 }
 
 INSTRUMENTS = ['Overdriven guitar', 'Synth strings 1', 'Synth strings 2']
@@ -178,6 +186,34 @@ def make_midi(time, flux, scale, duration,
 
     return midi_obj
 
+def make_image(kic):
+
+    output_name = os.path.join('.', 'data', 
+                               os.extsep.join(['{:d}'.format(kic), 'png']))
+
+    output_name = os.path.abspath(output_name)
+
+    if os.path.exists(output_name):
+        return output_name
+
+    time, flux = get_light_curves(kic)
+
+    plt.figure()
+
+    for t, f in zip(time, flux):
+        idx = np.isfinite(f) & np.isfinite(t)
+        ppl.plot(t[idx], f[idx])
+
+    plt.title('kic=%d' % kic)
+    plt.xlabel('Time')
+    plt.ylabel('Flux')
+    plt.axis('tight')
+
+    plt.tight_layout()
+
+    plt.savefig(output_name, transparent=True)
+
+    return output_name
 
 def make_music(kic, scale='jazz_minor'):
 

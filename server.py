@@ -42,6 +42,12 @@ def make_music(kic, scale):
     return flask.send_file(keplerphone.make_music(kic, scale=scale), 
                            mimetype='audio/x-midi')
 
+
+@app.route('/img/<int:kic>')
+def make_img(kic):
+    return flask.send_file(keplerphone.make_image(kic), mimetype='image/x-png')
+
+
 @app.route('/scales')
 def get_scales():
     return json.encode(keplerphone.get_scales())

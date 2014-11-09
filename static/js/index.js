@@ -14,7 +14,6 @@ function update_scales(data) {
 
 function play() {
     var source = $('input[name=source]:checked').val();
-
     var kic = $('#koi').val();
     var scale = $('#scale').val();
 
@@ -22,6 +21,8 @@ function play() {
         kic = $('#koi-free').val();
     }
 
+//     $.ajax({url: '/img/' + kic}).done(update_img);
+    $('#plot').attr('src', '/img/' + kic);
     var url = '/keplerphone/' + kic + '/' + scale;
 
     MIDIjs.play(url);
