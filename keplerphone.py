@@ -215,6 +215,7 @@ def make_image(kic):
 
     plt.tight_layout()
 
+    os.path.makedirs(os.path.dirname(output_name))
     plt.savefig(output_name, transparent=True)
 
     return output_name
@@ -259,6 +260,7 @@ def make_music(kic, scale='jazz_minor'):
                              drum_name=DRUMS[2],
                              midi_obj=midi_obj, time_offset=i*DURATION)
 
+    os.path.makedirs(os.path.dirname(output_name))
     midi_obj.write(output_name)
 
     return output_name
