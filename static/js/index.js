@@ -53,6 +53,13 @@ $(document).ready(function() {
     $('#playfree').click(play);
 
     $('#stop').click(function() { MIDIjs.stop(); });
+
+    $('#koi').change(function() {
+        var kic = $('#koi').val();
+        $('#koi-fixed').prop('checked', true);
+        $('#plot').attr('src', '/img/' + kic);
+        MIDIjs.stop();
+    });
 });
 
 function update_share(text) {
