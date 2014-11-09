@@ -61,6 +61,8 @@ def install_dependencies():
         'htop',
         'ipython',
         'python-numpy',
+        'python-scipy',
+        'python-sklearn',
         'libasound2-dev',
         'swig',
         'pkg-config',
