@@ -60,11 +60,12 @@ def install_dependencies():
         'uwsgi-plugin-python',
         'htop',
         'ipython',
+        'libasound2-dev',
         'swig',
         'pkg-config',
         'libfreetype6-dev',
         'libpng3-dev',
-        'libasound2-dev',
+        'blas-dev',
     ]
     sudo('apt-get -y update')
     sudo('apt-get -y upgrade')
