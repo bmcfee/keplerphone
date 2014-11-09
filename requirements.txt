@@ -1,0 +1,6 @@
+flask
+ujson
+-e git://github.com/vishnubob/python-midi.git#egg=python-midi
+-e git://github.com/craffel/pretty-midi.git#egg=pretty-midi
+fabric
+uwsgi
