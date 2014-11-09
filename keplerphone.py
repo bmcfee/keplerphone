@@ -36,7 +36,7 @@ SCALES = {  'Blues': [0, 3, 5, 6, 7, 10],
 INSTRUMENTS = ['Overdriven guitar', 'Bag pipe', 'Ocarina']
 DRUMS       = ['Splash cymbal', 'Bass drum 1', 'Acoustic snare']
 
-DURATION = 90.0
+BASE_DURATION = 30.0
 
 
 def get_light_curves(kic):
@@ -228,10 +228,14 @@ def make_image(kic):
     return output_name
 
 
-def make_music(kic, scale='jazz_minor'):
+def make_music(kic, scale='Kafi', speed=2.0):
+
+    my_duration = (12.0 - speed) * BASE_DURATION
 
     output_name = os.path.join('.', 'data',
-                               os.extsep.join(['{:d}-{:s}'.format(kic, scale),
+                               os.extsep.join(['{:d}-{:s}-{:.3e}'.format(kic, 
+                                                                         scale,
+                                                                         12.0 - speed),
                                                'mid']))
 
     output_name = os.path.abspath(output_name)
@@ -245,27 +249,29 @@ def make_music(kic, scale='jazz_minor'):
 
     my_scale = SCALES[scale]
 
+    print my_duration
+
     for i in range(4):
         midi_obj = make_midi(time[i], flux[i], my_scale,
-                             DURATION,
+                             my_duration,
                              n_octaves=3, note_min=48,
                              lead_name=INSTRUMENTS[0],
                              drum_name=DRUMS[0],
-                             midi_obj=midi_obj, time_offset=i * DURATION)
+                             midi_obj=midi_obj, time_offset=i * my_duration)
 
         midi_obj = make_midi(time[i+1], flux[i+1], [b + 7 for b in my_scale],
-                             DURATION,
+                             my_duration,
                              n_octaves=2, note_min=12,
                              lead_name=INSTRUMENTS[1],
                              drum_name=DRUMS[1],
-                             midi_obj=midi_obj, time_offset=i * DURATION)
+                             midi_obj=midi_obj, time_offset=i * my_duration)
 
         midi_obj = make_midi(time[i+1], flux[i+1], [b + 7 for b in my_scale],
-                             DURATION,
+                             my_duration,
                              n_octaves=2, note_min=36,
                              lead_name=INSTRUMENTS[2],
                              drum_name=DRUMS[2],
-                             midi_obj=midi_obj, time_offset=i*DURATION)
+                             midi_obj=midi_obj, time_offset=i * my_duration)
 
     try:
         os.makedirs(os.path.dirname(output_name))

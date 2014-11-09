@@ -21,6 +21,7 @@ function play() {
     var source = $('input[name=source]:checked').val();
     var kic = $('#koi').val();
     var scale = $('#scale').val();
+    var speed = $('#speed').val();
 
     if (source == 'free') {
         kic = $('#koi-free').val();
@@ -33,7 +34,7 @@ function play() {
 
     update_share('Listening to KIC' + kic + ' on The KeplerPhone');
 
-    MIDIjs.play('/keplerphone/' + kic + '/' + scale);
+    MIDIjs.play('/keplerphone/' + kic + '/' + encodeURIComponent(scale) + '/' + speed);
 }
 
 
