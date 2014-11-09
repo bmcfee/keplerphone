@@ -8,12 +8,18 @@ import numpy as np
 
 import os
 
-SCALES = {  'blues': [0, 3, 5, 6, 7, 10],
-            'jazz_minor': [0, 2, 3, 5, 7, 9, 11],
-            'marwa': [0, 1, 4, 6, 9, 11],
-            'todi': [0, 1, 4, 6, 7, 8, 11],
-            'pentatonic': [0, 2, 5, 7, 9],
+SCALES = {  'Blues': [0, 3, 5, 6, 7, 10],
+            'Jazz_minor': [0, 2, 3, 5, 7, 9, 11],
+            'Marwa': [0, 1, 4, 6, 9, 11],
+            'Todi': [0, 1, 4, 6, 7, 8, 11],
+            'Pentatonic': [0, 2, 5, 7, 9],
+            'Chromatic': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+            'Major': [0, 2, 4, 5, 7, 9, 11],
+            'Minor': [0, 2, 3, 5, 7, 9, 11]
 }
+
+INSTRUMENTS = ['Overdriven guitar', 'Synth strings 1', 'Synth strings 2']
+DRUMS       = ['Splash cymbal', 'Bass drum 1', 'Acoustic snare']
 
 DURATION = 90.0
 
@@ -183,6 +189,15 @@ def make_midi(time, flux, scale, duration,
 
 def make_music(kic, scale='jazz_minor'):
 
+    output_name = os.path.join('.', 'data',
+                               os.extsep.join(['{:d}-{:s}'.format(kic, scale),
+                                               'mid']))
+
+    output_name = os.path.abspath(output_name)
+
+    if os.path.exists(output_name):
+        return output_name
+
     time, flux = get_light_curves(kic)
 
     midi_obj = pretty_midi.PrettyMIDI()
@@ -193,29 +208,23 @@ def make_music(kic, scale='jazz_minor'):
         midi_obj = make_midi(time[i], flux[i], my_scale,
                              DURATION,
                              n_octaves=3, note_min=48,
-                             lead_name='Overdriven guitar',
-                             drum_name='Splash cymbal',
+                             lead_name=INSTRUMENTS[0],
+                             drum_name=DRUMS[0],
                              midi_obj=midi_obj, time_offset=i * DURATION)
 
         midi_obj = make_midi(time[i+1], flux[i+1], [b + 7 for b in my_scale],
                              DURATION,
                              n_octaves=2, note_min=12,
-                             lead_name='Clarinet',
-                             drum_name='Bass drum 1',
+                             lead_name=INSTRUMENTS[1],
+                             drum_name=DRUMS[1],
                              midi_obj=midi_obj, time_offset=i * DURATION)
 
         midi_obj = make_midi(time[i+1], flux[i+1], [b + 5 for b in my_scale],
                              DURATION,
                              n_octaves=2, note_min=36,
-                             lead_name='Cello',
-                             drum_name='Acoustic snare',
+                             lead_name=INSTRUMENTS[2],
+                             drum_name=DRUMS[2],
                              midi_obj=midi_obj, time_offset=i*DURATION)
-
-    output_name = os.path.join('.', 'data',
-                               os.extsep.join(['{:d}-{:s}'.format(kic, scale),
-                                               'mid']))
-
-    output_name = os.path.abspath(output_name)
 
     midi_obj.write(output_name)
 

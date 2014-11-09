@@ -5,40 +5,42 @@
 
         <!-- Latest compiled and minified CSS -->
         <link   rel="stylesheet" 
-                href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
+                href="//netdna.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
 
         <!-- Optional theme -->
-        <link   rel="stylesheet" 
-                href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap-theme.min.css">
+        <link   rel="stylesheet"
+                href="//netdna.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap-theme.min.css">
         
-        <title>Seymour audio collections</title>
+        <title>MIDI .... in SPACE</title>
 
-        <style type="text/css">
-
-            .track {
-                margin:         2px;
-                padding:        4px;
-                text-align:     justify;
-            }
-        </style>
     </head>
 
     <body>
-    <!-- Nav header with a drop-down full of collections -->
+        <div class="container-fluid">
+        <div class="row jumbotron">
+            <h1>Keplerphone</h1>
+        </div>
 
-        <nav class="navbar navbar-default" role="navigation">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <a class="navbar-brand" href="#">Keplerphone</a>
-                </div>
-            </div>
-        </nav>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="koi">Kepler object</label>
+                <select class="form-control" id="koi" style="width: 15em;">
+                </select>
 
-        <div class="container container-fluid col-md-12">
-            <div class="row">
+                <label for="scale">Scale</label>
+                <select class="form-control" id="scale" style="width: 15em;">
+                </select>
             </div>
         </div>
+
+<!--         <div class="container-fluid"> -->
+<!--             Or pick your favorite object of interest from <a -->
+<!--             href="http://archive.stsci.edu/kepler/planet_candidates.html">here</a>! -->
+<!--         </div> -->
+        </div>
     </body>
+
+    <script type='text/javascript' src='http://www.midijs.net/lib/midi.js'></script>
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     
