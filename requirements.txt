@@ -4,3 +4,8 @@ ujson
 -e git://github.com/craffel/pretty-midi.git#egg=pretty-midi
 fabric
 uwsgi
+matplotlib
+librosa
+numpy
+kplr
+prettyplotlib
