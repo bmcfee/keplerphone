@@ -31,7 +31,7 @@ function play() {
     $('#prekic').val(kic);
     $('#prescale').val(scale);
 
-    update_share('Listening to KIC' + kic + ' on the KeplerPhone');
+    update_share('Listening to KIC' + kic + ' on The KeplerPhone');
 
     MIDIjs.play('/keplerphone/' + kic + '/' + scale);
 }
