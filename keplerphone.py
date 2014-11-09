@@ -11,6 +11,9 @@ import os
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 import prettyplotlib as ppl
+# mpl.rc('text', color='w')
+# mpl.rc('xtick', color='w')
+# mpl.rc('ytick', color='w')
 mpl.rc('axes', edgecolor='w')
 
 SCALES = {  'Blues': [0, 3, 5, 6, 7, 10],
@@ -214,6 +217,7 @@ def make_image(kic):
     plt.savefig(output_name, transparent=True)
 
     return output_name
+
 
 def make_music(kic, scale='jazz_minor'):
 

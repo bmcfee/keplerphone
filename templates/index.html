@@ -20,14 +20,12 @@
             <h1>Keplerphone</h1>
         </div>
 
-        <div class="container">
-            <div class=".col-md-6">
+        <div class="row container">
+            <div class=".col-md-6 pull-right">
+                <img id="plot" width="640", height="480" />
+            </div>
+            <div class=".col-md-4 container">
                 <div class="form-group" role="form">
-                    <div class="pull-right">
-                        <button id="playfree" class="primary" style="font-size:48pt">
-                            <span class="glyphicon glyphicon-play-circle"></span> 
-                        </button>
-                    </div>
                     <div>
                         <label for="koi" class="control-label">
                         <input id="koi-fixed" type="radio" name="source" value="fixed" checked> Kepler objects (short period)</label>
@@ -48,9 +46,9 @@
                     <select class="form-control" id="scale" style="width: 15em;">
                     </select>
                 </div>
-            </div>
-            <div>
-                <img id="plot" width="640", height="320" />
+                <button id="playfree" class="primary" style="font-size:48pt">
+                    <span class="glyphicon glyphicon-play-circle"></span> 
+                </button>
             </div>
         </div>
     </body>
