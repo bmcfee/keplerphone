@@ -95,8 +95,6 @@ function update_download() {
 
     var href = '/keplerphone/' + kic + '/' + encodeURIComponent(scale) + '/' + speed;
 
-    console.log(scale);
-
     $('#download').attr('href', href);
 }
 

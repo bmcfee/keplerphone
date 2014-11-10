@@ -36,11 +36,15 @@ def run(**kwargs):
     app.run(**kwargs)
 
 
-@app.route('/keplerphone/<int:kic>/<scale>/<speed>')
+@app.route('/keplerphone/<int:kic>/<scale>/<float:speed>')
+@app.route('/keplerphone/<int:kic>/<scale>/<int:speed>')
 def make_music(kic, scale, speed):
 
     speed = float(speed)
     midi_file = keplerphone.make_music(kic, scale=scale, speed=speed)
+
+    if scale not in keplerphone.SCALES:
+        return None
 
     return flask.send_file(midi_file, as_attachment=True,
                            attachment_filename=os.path.basename(midi_file),
@@ -62,16 +66,19 @@ def get_ids():
     return json.encode(keplerphone.get_ids())
 
 
-@app.route('/<int:kic>/<scale>/<speed>')
+@app.route('/<int:kic>/<scale>/<float:speed>')
+@app.route('/<int:kic>/<scale>/<int:speed>')
 @app.route('/<int:kic>/<scale>')
 @app.route('/<int:kic>')
 @app.route('/')
 def index(kic=4912991, scale='Kafi', speed=2.0):
     '''Top-level web page'''
     speed = float(speed)
-    return flask.render_template('index.html', 
-                                 kic=kic, 
-                                 scale=scale, 
+    if scale not in keplerphone.SCALES:
+        return None
+    return flask.render_template('index.html',
+                                 kic=kic,
+                                 scale=scale,
                                  speed=speed)
 
 
