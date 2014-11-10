@@ -22,6 +22,12 @@ function update_scales(data) {
 function update_img() {
     var kic = $('#koi').val();
 
+    var source = $('input[name=source]:checked').val();
+
+    if (source == 'free') {
+        kic = $('#koi-free').val();
+    }
+
     $('#plot').attr('src', '/img/' + kic);
 
 }
@@ -57,7 +63,7 @@ $(document).ready(function() {
     if (prekic != "None") {
         $('#koi-free').val(prekic);
         $('#koi-free-radio').prop('checked', true);
-        $('#plot').attr('src', '/img/' + prekic);
+        update_img();
         update_share('Listening to KIC' + prekic + ' on The KeplerPhone');
     }
 
