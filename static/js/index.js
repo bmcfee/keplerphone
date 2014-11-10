@@ -4,6 +4,7 @@ function update_kois(data) {
     $.each(data, function(koi) {
         $('#koi').append($('<option>', {value : data[koi].id}).text(data[koi].name));
     });
+    update_share();
 }
 
 function update_scales(data) {
@@ -15,6 +16,7 @@ function update_scales(data) {
     if (prescale != "None") {
         $('#scale').val(prekic);
     }
+    update_share();
 }
 
 function update_img() {
