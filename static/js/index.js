@@ -72,6 +72,23 @@ function get_url() {
     return url;
 }
 
+function update_download() {
+    var kic = $('#koi').val();
+    var scale = $('#scale').val();
+    var speed = $('#speed').val();
+    var source = $('input[name=source]:checked').val();
+
+    if (source == 'free') {
+        kic = $('#koi-free').val();
+    }
+
+    var href = '/keplerphone/' + kic + '/' + encodeURIComponent(scale) + '/' + speed;
+
+    console.log(scale);
+
+    $('#download').attr('href', href);
+}
+
 function update_share(text) {
 
     var url = get_url();
@@ -83,4 +100,5 @@ function update_share(text) {
     $('#share').attr('href', href);
 
     $('#linkurl').val(url);
+    update_download();
 }
