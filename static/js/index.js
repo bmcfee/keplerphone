@@ -17,6 +17,13 @@ function update_scales(data) {
     }
 }
 
+function update_img() {
+    var kic = $('#koi').val();
+
+    $('#plot').attr('src', '/img/' + kic);
+
+}
+
 function play() {
     MIDIjs.stop();
     var source = $('input[name=source]:checked').val();
@@ -28,7 +35,7 @@ function play() {
         kic = $('#koi-free').val();
     }
 
-    $('#plot').attr('src', '/img/' + kic);
+    update_img();
 
     $('#prekic').val(kic);
     $('#prescale').val(scale);
@@ -63,6 +70,7 @@ $(document).ready(function() {
         $('#plot').attr('src', '/img/' + kic);
         MIDIjs.stop();
     });
+
 });
 
 function get_url() {
