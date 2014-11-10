@@ -51,7 +51,6 @@ function play() {
 
 $(document).ready(function() {
 
-    $.ajax({url: '/ids', dataType: 'json'}).done(update_kois);
     $.ajax({url: '/scales', dataType: 'json'}).done(update_scales);
 
     var prekic = $('#prekic').val()
@@ -72,6 +71,8 @@ $(document).ready(function() {
         $('#plot').attr('src', '/img/' + kic);
         MIDIjs.stop();
     });
+
+    $.ajax({url: '/ids', dataType: 'json'}).done(update_kois);
 
 });
 
