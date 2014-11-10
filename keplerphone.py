@@ -234,7 +234,7 @@ def make_music(kic, scale='Kafi', speed=2.0):
     my_duration = (12.0 - speed) * BASE_DURATION
 
     output_name = os.path.join('.', 'data',
-                               os.extsep.join(['{:d}-{:s}-{:.3e}'.format(kic, 
+                               os.extsep.join(['{:d}-{:s}-{:.3e}'.format(kic,
                                                                          scale,
                                                                          12.0 - speed),
                                                'mid']))
@@ -294,6 +294,20 @@ def get_scales():
 
 
 def get_ids():
+
+    id_shelf = shelve.open(os.path.join('data', 'kplr_ids.db'))
+
+    if 'ids' not in id_shelf:
+        id_shelf['ids'] = __get_ids()
+
+    ids = id_shelf['ids']
+
+    id_shelf.close()
+
+    return ids
+
+
+def __get_ids():
 
     client = kplr.API()
 
