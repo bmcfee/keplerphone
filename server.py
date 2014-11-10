@@ -40,7 +40,10 @@ def run(**kwargs):
 def make_music(kic, scale, speed):
 
     speed = float(speed)
-    return flask.send_file(keplerphone.make_music(kic, scale=scale, speed=speed),
+    midi_file = keplerphone.make_music(kic, scale=scale, speed=speed)
+
+    return flask.send_file(midi_file, as_attachment=True,
+                           attachment_filename=os.path.basename(midi_file),
                            mimetype='audio/x-midi')
 
 
