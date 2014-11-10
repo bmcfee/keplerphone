@@ -264,7 +264,7 @@ def make_music(kic, scale='Kafi', speed=2.0):
                              drum_name=DRUMS[1],
                              midi_obj=midi_obj, time_offset=i * my_duration)
 
-        midi_obj = make_midi(time[i+1], flux[i+1], [b + 7 for b in my_scale],
+        midi_obj = make_midi(time[i+2], flux[i+2], [b + 7 for b in my_scale],
                              my_duration,
                              n_octaves=2, note_min=36,
                              lead_name=INSTRUMENTS[2],
