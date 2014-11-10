@@ -6,6 +6,8 @@ import kplr
 import scipy.signal
 import numpy as np
 
+import shelve
+
 import os
 
 import matplotlib as mpl
@@ -30,7 +32,6 @@ SCALES = {  'Blues': [0, 3, 5, 6, 7, 10],
             'Not Exactly Todi': [0, 1, 4, 6, 7, 8, 11],
             'Whole Tone': [0, 2, 4, 6, 8, 10],
             'Octatonic': [0, 2, 3, 5, 6, 8, 9, 11],
-
 }
 
 INSTRUMENTS = ['Overdriven guitar', 'Bag pipe', 'Ocarina']
@@ -257,12 +258,18 @@ def make_music(kic, scale='Kafi', speed=2.0):
                              drum_name=DRUMS[0],
                              midi_obj=midi_obj, time_offset=i * my_duration)
 
+        if i + 1 >= len(time):
+            break
+
         midi_obj = make_midi(time[i+1], flux[i+1], [b + 7 for b in my_scale],
                              my_duration,
                              n_octaves=2, note_min=12,
                              lead_name=INSTRUMENTS[1],
                              drum_name=DRUMS[1],
                              midi_obj=midi_obj, time_offset=i * my_duration)
+
+        if i + 2 >= len(time):
+            break
 
         midi_obj = make_midi(time[i+2], flux[i+2], [b + 7 for b in my_scale],
                              my_duration,
