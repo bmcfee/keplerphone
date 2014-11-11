@@ -83,8 +83,7 @@ $(document).ready(function() {
         $('#koi-fixed').prop('checked', true);
         var kic = get_kic();
         $('#plot').attr('src', '/img/' + kic);
-        update_share();
-        MIDIjs.stop();
+        update_control();
     });
 
     $.ajax({url: '/ids', dataType: 'json'}).done(update_kois);
