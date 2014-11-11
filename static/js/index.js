@@ -20,13 +20,7 @@ function update_scales(data) {
 }
 
 function update_img() {
-    var kic = $('#koi').val();
-
-    var source = $('input[name=source]:checked').val();
-
-    if (source == 'free') {
-        kic = $('#koi-free').val();
-    }
+    var kic = get_kic();
 
     $('#plot').attr('src', '/img/' + kic);
 
@@ -34,25 +28,37 @@ function update_img() {
 
 function play() {
     MIDIjs.stop();
-    var source = $('input[name=source]:checked').val();
-    var kic = $('#koi').val();
     var scale = $('#scale').val();
     var speed = $('#speed').val();
-
-    if (source == 'free') {
-        kic = $('#koi-free').val();
-    }
+    var kic = get_kic();
 
     update_img();
 
     $('#prekic').val(kic);
     $('#prescale').val(scale);
 
-    update_share('Listening to KIC' + kic + ' on The KeplerPhone');
+    update_share(kic);
 
     MIDIjs.play('/keplerphone/' + kic + '/' + encodeURIComponent(scale) + '/' + speed);
 }
 
+function get_kic() {
+
+    var source = $('input[name=source]:checked').val();
+    var kic = $('#koi').val();
+
+    if (source == 'free') {
+        kic = $('#koi-free').val();
+    }
+
+    return kic;
+}
+
+
+function update_control() {
+    update_share();
+    MIDIjs.stop();
+}
 
 
 $(document).ready(function() {
@@ -64,17 +70,20 @@ $(document).ready(function() {
         $('#koi-free').val(prekic);
         $('#koi-free-radio').prop('checked', true);
         update_img();
-        update_share('Listening to KIC' + prekic + ' on The KeplerPhone');
+        update_share(prekic);
     }
 
     $('#playfree').click(play);
 
-    $('#stop').click(function() { MIDIjs.stop(); });
+    $('#stop').click(update_control);
+    $('#scale').change(update_control);
+    $('#speed').change(update_control);
 
     $('#koi').change(function() {
-        var kic = $('#koi').val();
         $('#koi-fixed').prop('checked', true);
+        var kic = get_kic();
         $('#plot').attr('src', '/img/' + kic);
+        update_share();
         MIDIjs.stop();
     });
 
@@ -84,28 +93,26 @@ $(document).ready(function() {
 
 function get_url() {
 
-    var url = window.location.origin + '/' +  $('#prekic').val() + '/' + $('#prescale').val() + '/' + $('#speed').val();
+    var url = window.location.origin + '/' + get_kic() + '/' + $('#prescale').val() + '/' + $('#speed').val();
     
     return url;
 }
 
 function update_download() {
-    var kic = $('#koi').val();
     var scale = $('#scale').val();
     var speed = $('#speed').val();
-    var source = $('input[name=source]:checked').val();
-
-    if (source == 'free') {
-        kic = $('#koi-free').val();
-    }
+    var kic = get_kic();
 
     var href = '/keplerphone/' + kic + '/' + encodeURIComponent(scale) + '/' + speed;
 
     $('#download').attr('href', href);
 }
 
-function update_share(text) {
+function update_share() {
 
+    var kic = get_kic();
+
+    var text = 'Listening to KIC' + kic + ' on The KeplerPhone';
     var url = get_url();
 
     var href = 'http://twitter.com/intent/tweet?text=' + encodeURIComponent(text)
@@ -114,6 +121,6 @@ function update_share(text) {
 
     $('#share').attr('href', href);
 
-    $('#linkurl').val(url);
+    window.history.pushState(null, $('title').text(), url);
     update_download();
 }
